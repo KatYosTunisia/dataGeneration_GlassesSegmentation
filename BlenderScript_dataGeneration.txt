@@ -1,0 +1,948 @@
+import bpy
+import time
+import math
+import os
+import mathutils
+import random
+from mathutils import Euler
+
+
+class MyClass:
+
+
+
+    listLens=[]
+    listBox=[]
+    name = 1606
+    
+    
+        
+    test1=0
+    test2=0
+    test3=0
+    
+    foldernum = 1606
+    
+    tran_x=0
+    tran_y=0
+    
+    
+    foldernum = 1606
+
+
+
+
+    def get_objects(self) :
+        
+        global listLens,listBox
+        global Box0,Box1,Box2,Box3,Box4,Box5,Box6,Lens0,Lens1,Lens2,Lens3,Lens4,Lens5,Lens6
+        for obj in bpy.data.objects:
+          
+          
+            if(obj.name=="Box0"):
+                Box0=obj
+                self.listBox.append(Box0)
+            elif(obj.name=="Box1"):
+                Box1=obj
+                self.listBox.append(Box1)  
+            elif(obj.name=="Box2"):
+                Box2=obj
+                self.listBox.append(Box2)   
+            elif(obj.name=="Box3"):
+                Box3=obj
+                self.listBox.append(Box3)  
+            elif(obj.name=="Box4"):
+                Box4=obj
+                self.listBox.append(Box4)
+            elif(obj.name=="Box5"):
+                Box5=obj
+                self.listBox.append(Box5)  
+            elif(obj.name=="Box6"):
+                Box6=obj
+                self.listBox.append(Box6)  
+            elif(obj.name=="Lens0"):
+                Lens0=obj
+                self.listLens.append(Lens0)   
+            elif(obj.name=="Lens1"):
+                Lens1=obj
+                self.listLens.append(Lens1)   
+            elif(obj.name=="Lens2"):
+                Lens2=obj
+                self.listLens.append(Lens2)   
+            elif(obj.name=="Lens3"):
+                Lens3=obj
+                self.listLens.append(Lens3)   
+            elif(obj.name=="Lens4"):
+                Lens4=obj
+                self.listLens.append(Lens4)
+            elif(obj.name=="Lens5"):
+                Lens5=obj
+                self.listLens.append(Lens5)   
+            elif(obj.name=="Lens6"):
+                Lens6=obj
+                self.listLens.append(Lens6)  
+
+              
+
+
+
+        
+    def modify_vertices(self,obj11,obj12,obj21,obj22,name):
+        counter=0
+        dist1 =abs(obj11.data.vertices[0].co.x - obj21.data.vertices[0].co.x)/10
+        dist2 =abs(obj12.data.vertices[0].co.x - obj22.data.vertices[0].co.x)/10
+        
+        global test1
+        global test2
+        global test3
+        global foldernum
+       
+        
+        
+
+       
+                
+                
+        
+        
+        
+        
+        
+        
+      
+        for k in range(1,12) :
+            
+            blend_file_path = bpy.data.filepath
+            directory = os.path.dirname(blend_file_path)
+            target_file = os.path.join(directory+'/df')
+            self.foldernum= self.foldernum+1
+            folder_name = "/folder_file "+str(self.foldernum)
+            folder_path = target_file+folder_name
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+                
+                
+            obj11_copy = obj11.copy()
+            obj11_copy.data = obj11.data.copy()
+            
+            obj12_copy = obj11.copy()
+            obj12_copy.data = obj12.data.copy()
+            
+            bpy.context.collection.objects.link(obj11_copy)
+            bpy.context.collection.objects.link(obj12_copy)
+            
+            # Set the active object to the one you want to activate
+            bpy.context.view_layer.objects.active = obj11_copy
+
+            # Select the object (optional)
+            obj11_copy.select_set(True)
+            
+              #calling the cobj_color_change function////////////
+            r = random.uniform(0.0, 1.0)
+            
+            g = random.uniform(0.0, 1.0)
+            
+            b = random.uniform(0.0, 1.0)
+            
+            print(r)
+            print(g)
+            print(b)
+            
+            self.obj_color_change(obj11_copy,r,g,b)
+            
+            # Set the active object to the one you want to activate
+            bpy.context.view_layer.objects.active = obj12_copy
+
+            # Select the object (optional)
+            obj12_copy.select_set(True)
+            
+            r = random.uniform(0.0, 1.0)
+            
+            g = random.uniform(0.0, 1.0)
+            
+            b = random.uniform(0.0, 1.0)
+            
+            alph= random.uniform(0.1, 0.7)
+            
+            self.obj_color_change(obj12_copy,r,g,b,alph)
+            counter=counter+1
+            for i in range(len(obj11.data.vertices)) :
+                #print("taw running loula :"+str(self.test1))
+                #test1=test1+1
+                obj11_copy.data.vertices[i].co.x=obj21.data.vertices[i].co.x+(obj11.data.vertices[i].co.x - obj21.data.vertices[i].co.x)/10*k
+                obj11_copy.data.vertices[i].co.y=obj21.data.vertices[i].co.y+(obj11.data.vertices[i].co.y - obj21.data.vertices[i].co.y)/10*k
+                obj11_copy.data.vertices[i].co.z=obj21.data.vertices[i].co.z+(obj11.data.vertices[i].co.z - obj21.data.vertices[i].co.z)/10*k
+            
+            for i in range(len(obj12.data.vertices)) :
+                #print("taw runing theniya : "+str(self.test2))
+                #test2=test2+1
+                obj12_copy.data.vertices[i].co.x=obj22.data.vertices[i].co.x+(obj12.data.vertices[i].co.x - obj22.data.vertices[i].co.x)/10*k
+                obj12_copy.data.vertices[i].co.y=obj22.data.vertices[i].co.y+(obj12.data.vertices[i].co.y - obj22.data.vertices[i].co.y)/10*k
+                obj12_copy.data.vertices[i].co.z=obj22.data.vertices[i].co.z+(obj12.data.vertices[i].co.z - obj22.data.vertices[i].co.z)/10*k
+                obj12_copy.data.vertices[i].co.y-0.95
+               
+            obj11_copy.data.update()
+            obj12_copy.data.update()
+            
+            random1=self.back_changer()
+            
+            trans1,trans2=self.translate_backg()
+            #/////////////////////////////////////////////////////////////////////////////
+            
+            
+            
+                   
+            self.images_making1(folder_path,obj11_copy,obj12_copy,random1,trans1,trans2)
+            
+            time.sleep(1)
+       
+            
+            self.images_making2(folder_path,obj11_copy,obj12_copy,random1,trans1,trans2)
+            
+
+            time.sleep(1)
+         
+            
+            obj11.select_set(False)
+            obj21.select_set(False)
+            obj12.select_set(False)
+            obj22.select_set(False)
+     
+            bpy.context.view_layer.objects.active = obj11_copy
+            obj11_copy.select_set(True)
+            bpy.context.view_layer.objects.active = obj12_copy
+            obj12_copy.select_set(True)
+            #y=y+1
+            
+            
+            
+            obj11_copy.hide_render = False
+            obj12_copy.hide_render = False
+            
+            bpy.ops.object.join()
+            for obj in bpy.data.objects:
+                
+                    obj.hide_render = True
+                
+           
+            
+           
+            
+            
+                  
+            joined_copy = bpy.context.active_object.copy()
+
+          
+            bpy.context.scene.collection.objects.link(joined_copy)
+            
+            joined_copy.hide_render = False
+            
+            #calling the back_changer function////////////
+            
+            
+          
+            #print("taw running theltha :"+str(self.test3))
+            #test3=test3+1
+            
+            #calling the translate_backgfunction////////////
+        
+          
+
+        
+            blend_file_path = bpy.data.filepath
+            directory = os.path.dirname(blend_file_path)
+            bpy.context.view_layer.objects.active = joined_copy
+            target_file = os.path.join(folder_path, "/myfile" + str(name) + ".obj")
+            
+            
+            
+            
+
+    
+           
+            bpy.ops.export_scene.fbx(
+            filepath=folder_path+ "/myfile" + str(name) + ".fbx",
+            use_selection=True,
+            object_types={'MESH'},
+            use_mesh_modifiers=True,
+            mesh_smooth_type='FACE',
+            bake_space_transform=True
+            )
+
+            #print("Exported object as FBX file:", obj.name)
+            
+            
+            #///////////////////////////////////////////////////////////////////////////
+            
+       
+              #bpy.ops.export_scene.obj(filepath=target_file, use_selection=True)
+            bpy.data.objects.remove(joined_copy,do_unlink=True)
+            bpy.data.objects.remove(obj12_copy,do_unlink=True)
+            name=name+1
+            
+            
+            time.sleep(5)
+            
+            
+            
+            
+            
+        return name
+        
+    name=1143
+
+        
+    def parcours(self,name) :
+        for s in range (6) :
+            for i in range(1,7-s) :
+                name1 = self.modify_vertices(self.listBox[0],self.listLens[0],self.listBox[i],self.listLens[i],name)
+                name=name1
+        
+        
+    #parcours(name)
+
+    def images_making1(self,folder_path,obj11,obj12,random_num,trans1,trans2) :
+               
+        camera = bpy.context.scene.camera
+
+        
+        camera.location = (0, -10, 0)
+
+        
+        rotation = Euler((math.radians(90), 0.0, 0.0), 'XYZ')
+        camera.rotation_euler = rotation
+        
+        self.images_render(folder_path,"noside",random_num,obj11,obj12,trans1,trans2)
+        
+        
+        
+        
+        
+        
+        
+    def images_making2(self,folder_path,obj11,obj12,random_num,trans1,trans2) :
+        
+        camera = bpy.context.scene.camera
+        
+        camera.location = (-10, 0, 0)
+        
+        
+        rotation = Euler((math.radians(90), 0.0, math.radians(-90)), 'XYZ')
+        camera.rotation_euler = rotation
+        
+        self.images_render(folder_path,"side",random_num,obj11,obj12,trans1,trans2)
+        
+       
+
+        
+        
+      
+
+    #images()
+
+    def images_render(self,folder_path,stri,random_num,obj11,obj12,trans1,trans2) :
+        var=0
+       
+            
+           
+        obj11.hide_render = False 
+        obj12.hide_render = False
+        adding=""
+        if stri=="side" :
+            adding=stri
+        else :
+            adding=""
+            
+        blend_file_path = bpy.data.filepath
+        directory = os.path.dirname(blend_file_path)
+        target_file = os.path.join(directory+'/df')
+        
+        
+        folder_name = "/folder_file "+str(self.foldernum)
+        
+
+
+        
+
+
+
+
+        node_label = "my"
+
+        tree=bpy.context.scene.node_tree
+
+        # Find the node with the specified label
+        render_layers_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                render_layers_node = n
+                break
+            
+            
+        print(render_layers_node)
+
+        # Get the Alpha Over node
+        alpha_over_node = tree.nodes.get("Alpha Over")
+
+        mix_node = tree.nodes.get("Mix")
+
+        render_layers_node = tree.nodes.get("Render Layers.001")
+
+        links = tree.links
+
+        tt=0
+        for l in links:
+            print(l)
+            print(l.from_node)
+            print(l.to_node)
+            print(tt)
+            print("//////////////////////////////////////")
+            tt=tt+1
+            
+            
+        link1 = tree.links[6]
+        link0 = tree.links[6]
+        
+        link11 = tree.links[5]
+        link00 = tree.links[5]
+
+
+        node_label="yours"
+        yours = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                yours = n
+                
+        node_label="myscale"
+        myscale = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                myscale = n
+        
+        node_label="mix2"
+        mix2 = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                mix2 = n
+                
+        
+       
+        tree.links.remove(link0)
+        tree.links.remove(link00)
+        link1 = links.new(yours.outputs[0],myscale.inputs[0])
+        link11 = links.new(render_layers_node.outputs[0],alpha_over_node.inputs[2])
+        bpy.context.scene.render.image_settings.file_format = 'PNG'
+        bpy.context.scene.render.resolution_x = 1920
+        bpy.context.scene.render.resolution_y = 1080
+
+        # Set the output file path
+        bpy.context.scene.render.filepath = folder_path+ "/image_without_mask"+adding+str(var)+".png"
+        bpy.ops.render.render(write_still=True)
+            
+         
+        obj11.hide_render = True
+        obj12.hide_render = False
+        
+        
+        tree.links.remove(link1)
+        tree.links.remove(link11)
+        link0 = links.new(mix_node.outputs[0],alpha_over_node.inputs[2])
+        
+        link00 = links.new(mix2.outputs[0],myscale.inputs[0])
+    
+        bpy.context.scene.render.image_settings.file_format = 'PNG'
+        bpy.context.scene.render.resolution_x = 1920
+        bpy.context.scene.render.resolution_y = 1080
+
+            # Set the output file path
+        bpy.context.scene.render.filepath = folder_path+"/image_with_mask"+adding+str(var)+".png"
+        bpy.ops.render.render(write_still=True)
+        
+        
+        obj11.hide_render = False
+        obj12.hide_render = True
+        
+        
+        camera = bpy.context.scene.camera
+
+        # Set the background image for the camera
+        if camera:
+            camera_data = camera.data
+            camera_data.show_background_images = True
+
+            # Remove the old background image
+            if len(camera_data.background_images) > 0:
+                old_bg_image = camera_data.background_images[0]
+                camera_data.background_images.remove(old_bg_image)
+
+            # Add the new background image
+            bg_image = camera_data.background_images.new()
+            bg_image.image = bpy.data.images.load(folder_path+"/image_with_mask"+adding+str(var)+".png")
+            bg_image.alpha = 1.0
+
+
+        node_label = "yours"
+
+        tree=bpy.context.scene.node_tree
+        
+        
+
+        mix_node = tree.nodes.get("Mix")
+        image_socket = mix_node.inputs[2]  # 0 is the first socket, 1 is the second socket (Image)
+        #image_socket.use_custom_color = True
+        image_socket.default_value = (0.25, 0.25, 0.25, 1.0)
+
+        # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                input_image_node = n
+        # Replace the input image with the new image
+        if input_image_node:
+            input_image_node.image = bpy.data.images.load(folder_path+"/image_with_mask"+adding+str(var)+".png")
+            
+       
+       
+       
+       
+       
+        nodes = bpy.context.scene.node_tree.nodes
+
+        # Create a Scale node
+        node_label = "myscale"
+
+        tree=bpy.context.scene.node_tree
+
+            # Find the node with the specified label
+        scale_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                scale_node = n
+
+        # Set the scale to 50%
+       
+        
+        scale_node.inputs[1].default_value = 1
+        scale_node.inputs[2].default_value = 1
+        
+        node_label = "Translate"
+
+        tree=bpy.context.scene.node_tree
+
+            # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                translate_node = n
+                
+                
+      
+        
+        translate_node.inputs[1].default_value = 0
+        
+    
+        
+
+        translate_node.inputs[2].default_value = 0
+        
+        
+        link1 = links.new(yours.outputs[0],myscale.inputs[0])
+     
+        link0 = links.new(mix_node.outputs[0],alpha_over_node.inputs[2])
+        
+    
+        
+        bpy.context.scene.render.image_settings.file_format = 'PNG'
+        bpy.context.scene.render.resolution_x = 1920
+        bpy.context.scene.render.resolution_y = 1080
+
+            # Set the output file path
+        bpy.context.scene.render.filepath = folder_path+"/image_with_mask"+adding+str(var)+".png"
+        bpy.ops.render.render(write_still=True)
+        
+        
+        
+        link11 = links.new(render_layers_node.outputs[0],alpha_over_node.inputs[2])
+        
+        
+        
+        
+        
+        
+        
+        image_socket.default_value = (1, 1, 1, 1.0)
+
+        
+        
+        
+        
+        
+        
+        translate_node.inputs[1].default_value = trans1
+        
+    
+        
+
+        translate_node.inputs[2].default_value = trans2
+        
+        
+      
+         
+        scale_node.inputs[1].default_value = 2
+        scale_node.inputs[2].default_value = 2
+        
+        
+        
+        blend_file_path = bpy.data.filepath
+        directory = os.path.dirname(blend_file_path) 
+        # Set the file path for the background image
+        
+        
+
+      
+        
+        file_path = directory+"/df/bac/image"+str(random_num)+"jpg.jpg"
+
+        # Get the active camera
+
+
+        # Get the active camera
+        
+        camera = bpy.context.scene.camera
+
+        # Set the background image for the camera
+        if camera:
+            camera_data = camera.data
+            camera_data.show_background_images = True
+
+            # Remove the old background image
+            if len(camera_data.background_images) > 0:
+                old_bg_image = camera_data.background_images[0]
+                camera_data.background_images.remove(old_bg_image)
+
+            # Add the new background image
+            bg_image = camera_data.background_images.new()
+            bg_image.image = bpy.data.images.load(file_path)
+            bg_image.alpha = 1.0
+
+
+        node_label = "yours"
+
+        tree=bpy.context.scene.node_tree
+
+        # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                input_image_node = n
+        # Replace the input image with the new image
+        if input_image_node:
+            input_image_node.image = bpy.data.images.load(file_path)
+        obj11.hide_render = False
+        obj12.hide_render = False
+        
+        
+        
+                
+            
+        
+        
+
+
+    def real_image_render1(self,random_num,file_path1) :
+        
+        
+        
+        camera = bpy.context.scene.camera
+
+        # Set the background image for the camera
+        if camera:
+            camera_data = camera.data
+            camera_data.show_background_images = True
+
+            # Remove the old background image
+            if len(camera_data.background_images) > 0:
+                old_bg_image = camera_data.background_images[0]
+                camera_data.background_images.remove(old_bg_image)
+
+            # Add the new background image
+            bg_image = camera_data.background_images.new()
+            bg_image.image = bpy.data.images.load(file_path)
+            bg_image.alpha = 1.0
+
+
+        node_label = "yours"
+
+        tree=bpy.context.scene.node_tree
+
+        # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                input_image_node = n
+        # Replace the input image with the new image
+        if input_image_node:
+            input_image_node.image = bpy.data.images.load(file_path1)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        blend_file_path = bpy.data.filepath
+        directory = os.path.dirname(blend_file_path) 
+        # Set the file path for the background image
+        
+        
+
+      
+        
+        file_path = directory+"/df/bac/image"+str(random_num)+"jpg.jpg"
+
+        # Get the active camera
+
+
+        # Get the active camera
+        
+        camera = bpy.context.scene.camera
+
+        # Set the background image for the camera
+        if camera:
+            camera_data = camera.data
+            camera_data.show_background_images = True
+
+            # Remove the old background image
+            if len(camera_data.background_images) > 0:
+                old_bg_image = camera_data.background_images[0]
+                camera_data.background_images.remove(old_bg_image)
+
+            # Add the new background image
+            bg_image = camera_data.background_images.new()
+            bg_image.image = bpy.data.images.load(file_path)
+            bg_image.alpha = 1.0
+
+
+        node_label = "yours"
+
+        tree=bpy.context.scene.node_tree
+
+        # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                input_image_node = n
+        # Replace the input image with the new image
+        if input_image_node:
+            input_image_node.image = bpy.data.images.load(file_path)
+        
+
+
+
+    def back_changer(self) :
+        blend_file_path = bpy.data.filepath
+        directory = os.path.dirname(blend_file_path) 
+        # Set the file path for the background image
+        
+        
+
+        # Generate a random number between start_num and end_num (inclusive)
+        random_num = random.randint(0, 109)
+
+        
+        file_path = directory+"/df/bac/image"+str(random_num)+"jpg.jpg"
+
+        # Get the active camera
+
+
+        # Get the active camera
+        
+        camera = bpy.context.scene.camera
+
+        # Set the background image for the camera
+        if camera:
+            camera_data = camera.data
+            camera_data.show_background_images = True
+
+            # Remove the old background image
+            if len(camera_data.background_images) > 0:
+                old_bg_image = camera_data.background_images[0]
+                camera_data.background_images.remove(old_bg_image)
+
+            # Add the new background image
+            bg_image = camera_data.background_images.new()
+            bg_image.image = bpy.data.images.load(file_path)
+            bg_image.alpha = 1.0
+
+
+        node_label = "yours"
+
+        tree=bpy.context.scene.node_tree
+
+        # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                input_image_node = n
+        # Replace the input image with the new image
+        if input_image_node:
+            input_image_node.image = bpy.data.images.load(file_path)
+        return random_num
+
+
+        
+  
+
+    def translate_backg(self) :
+        node_label = "Translate"
+
+        tree=bpy.context.scene.node_tree
+
+            # Find the node with the specified label
+        image_node = None
+        for n in tree.nodes:
+            if n.label == node_label:
+                translate_node = n
+                
+                
+        numbers = [-0.3,-0.15, 0, 0.15, 0.3]
+        random_number1 = random.choice(numbers)
+        
+        translate_node.inputs[1].default_value = random_number1
+        
+        numbers = [-0.3,-0.15, 0, 0.15, 0.3]
+        random_number2 = random.choice(numbers)
+
+        translate_node.inputs[2].default_value = random_number2
+        
+        return random_number1,random_number2
+
+        
+
+
+    def obj_color_change(self,obj,r,g,b,alph=1) :
+        
+        
+        # Get the active material
+        mat = obj.active_material
+
+        # Get the nodes of the active material
+        nodes = mat.node_tree.nodes
+
+        # Get the Principled BSDF node
+
+
+        bsdf_node = None
+        for node in nodes:
+            if node.type == 'BSDF_PRINCIPLED':
+                bsdf_node = node
+                break
+
+        # Get the base color of the Principled BSDF node
+        base_color = bsdf_node.inputs['Base Color'].default_value = (r, g, b, 1)
+
+
+        # Get the base color of the Principled BSDF node
+        bsdf_node.inputs['Alpha'].default_value = alph
+         # Create a new material
+      
+
+
+
+
+name =1606
+
+ 
+my_object = MyClass()
+
+my_object.get_objects()
+my_object.parcours(name)
+
+
+
+tree=bpy.context.scene.node_tree
+links = tree.links
+
+tt=0
+for l in links:
+    print(l)
+    print(l.from_node)
+    print(l.to_node)
+    print(tt)
+    print("//////////////////////////////////////")
+    tt=tt+1
+    
+
+
+listLens=[]
+listBox=[]
+for obj in bpy.data.objects:
+          
+          
+    if(obj.name=="Box5"):
+        Box5=obj
+        
+    elif(obj.name=="Lens5"):
+        Lens5=obj
+'''                
+my_object.obj_color_change(Box5,1,0,0,)
+my_object.obj_color_change(Lens5,1,1,0,0.8)
+
+joined_copy = bpy.context.active_object.copy()
+
+          
+bpy.context.scene.collection.objects.link(joined_copy)
+
+
+blend_file_path = bpy.data.filepath
+directory = os.path.dirname(blend_file_path)
+bpy.context.view_layer.objects.active = joined_copy
+target_file = os.path.join(directory, "/myfileuuuuu.obj")
+            
+            
+            
+            
+
+    
+           
+bpy.ops.export_scene.fbx(
+filepath=directory+ "/myfileuuuuuuu.fbx",
+use_selection=True,
+object_types={'MESH'},
+use_mesh_modifiers=True,
+mesh_smooth_type='FACE',
+bake_space_transform=True
+)
+'''
+
+#bpy.data.materials["Shade Lens.005"].node_tree.nodes["Principled BSDF"].inputs[21].default_value = 0.385455
+
+#bpy.data.materials["Shade Lens.005"].node_tree.nodes["Principled BSDF"].inputs[0].default_value = (1, 1, 0, 1)
+
+# Get the active material
+#mat = Lens5.active_material
+
+# Get the nodes of the active material
+#nodes = mat.node_tree.nodes
+
+# Get the Principled BSDF node
+
+
+
+
+
