@@ -48,7 +48,7 @@ $pip install -r requirements.txt
 </pre>
 - change training parameters in the config file
 - change paths according to your envirement
-<pre>
+
  ```python
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
@@ -68,7 +68,7 @@ __C.DATASETS.PIX3D.ANNOTATION_PATH          = 'Datasets/Pix3D/pix3d.json'
 __C.DATASETS.PIX3D.RENDERING_PATH           = 'Datasets/Pix3D/img/%s/%s.%s'
 __C.DATASETS.PIX3D.VOXEL_PATH               = 'Datasets/Pix3D/model/%s/%s/%s.binvox'
 ```
-</pre>  
+  
 
 
 
