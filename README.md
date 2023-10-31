@@ -38,17 +38,17 @@ $pip install -r requirements.txt
   !pip install -r requirements.txt
 </pre>
 -install the ShapeNet datasets:
-<pre>
+```bash
 !mkdir Datasets
 !mkdir Datasets/ShapNet
 !mkdir Datasets/Pix3D
 !unzip pix3d.zip -d Datasets/Pix3D
 !tar -zxvf ShapeNetVox32.tgz -C Datasets/ShapNet
 !tar -zxvf ShapeNetRendering.tgz -C Datasets/ShapNet
-</pre>
+ ```
 - change training parameters in the config file
 - change paths according to your envirement
-
+ 
  ```python
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
