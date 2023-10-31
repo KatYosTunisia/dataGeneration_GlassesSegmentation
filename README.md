@@ -8,11 +8,11 @@
 -add your dataset to data folder with mask and image folders (maeke sure image and its correspond mask have the smae id )  
 -install.txt (use python 3.8)   
 <pre>
-  '''bash
-  $python3 -m venv yourenv
-  $./yourenv/bin/activate
-  $pip install -r requirements.txt
-  '''
+'''bash
+$python3 -m venv yourenv
+$./yourenv/bin/activate
+$pip install -r requirements.txt
+'''
 </pre>
 
 
