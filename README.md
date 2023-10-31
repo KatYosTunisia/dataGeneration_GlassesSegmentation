@@ -47,7 +47,7 @@ $pip install -r requirements.txt
 !tar -zxvf ShapeNetRendering.tgz -C Datasets/ShapNet
  ```
 - change training parameters in the config file
-- change paths according to your envirement
+- change paths according to your envirement in the config file
  
  ```python
 __C.DATASETS                                = edict()
