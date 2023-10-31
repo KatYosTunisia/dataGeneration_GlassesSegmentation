@@ -39,6 +39,11 @@ $pip install -r requirements.txt
 </pre>
 -install the ShapeNet datasets:
 ```bash
+!wget http://pix3d.csail.mit.edu/data/pix3d.zip
+!wget http://cvgl.stanford.edu/data2/ShapeNetVox32.tgz
+!wget http://cvgl.stanford.edu/data2/ShapeNetRendering.tgz
+```
+```bash
 !mkdir Datasets
 !mkdir Datasets/ShapNet
 !mkdir Datasets/Pix3D
