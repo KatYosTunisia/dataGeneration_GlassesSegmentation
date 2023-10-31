@@ -15,7 +15,7 @@ $./yourenv/bin/activate
 $pip install -r requirements.txt
 
 </pre>
--if you use juputer notebook just install wandb
+-if you use jupyter notebook just install wandb
 <pre>
   !pip install wandb
 </pre>
