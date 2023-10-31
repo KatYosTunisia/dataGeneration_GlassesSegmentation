@@ -48,7 +48,7 @@ $pip install -r requirements.txt
 </pre>
 - change training parameters in the config file
 - change paths according to your envirement
-- <pre>
+<pre>
   '''python
   __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
